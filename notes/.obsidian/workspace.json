@@ -21,7 +21,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Logs/29.10.23.md",
+                "file": "Logs/02.11.23.md",
                 "mode": "source",
                 "source": false
               }
@@ -94,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Logs/29.10.23.md",
+                "file": "Logs/02.11.23.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -111,7 +111,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Logs/29.10.23.md",
+                "file": "Logs/02.11.23.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": false
               }
@@ -134,7 +134,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Logs/29.10.23.md"
+                "file": "Logs/02.11.23.md"
               }
             }
           }
@@ -158,8 +158,11 @@
   },
   "active": "6c7c995cd45fd7a3",
   "lastOpenFiles": [
-    "Logs",
+    "Logs/#02.11.23.md#",
+    "Logs/30.10.23.md",
+    "Logs/02.11.23.md",
     "Logs/29.10.23.md",
+    "Logs",
     "Project Management.md",
     "Ligma.md",
     "2023-10-29.md",
