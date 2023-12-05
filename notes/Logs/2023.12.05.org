@@ -1,0 +1,141 @@
+* - [ ] translations UI
+** frontend
+so how do i build this
+i have two <pages> or components.
+one state that controls their switching. revealed or so.
+a store that holds the sendence and the review.
+how do i do this store
+init - pass in the sentence.
+review false.
+user types in sentence, hits send.
+revealed true. sentence moved to review. sentence = null
+review page loads.
+no review, display load state.
+
+mutation asks for review. review is returned.
+display review.
+
+new sentence requested & returned.
+display new sentence trigger at the bottom.
+
+STORE:
+revealed   <Boolean>
+sentence   <SentenceObject>
+review     <ReviewObject>
+
+COMPONENTS:
+TranslationInput
+TranslationReview loading=True|False
+NextSentenceCard
+
+
+DISPLAY STATES:
+{
+    sentence=null
+    review=null
+    revealed=false
+}<
+   <Loading />
+>
+
+
+{
+    sentence=<SentenceObject>
+    review=null
+    revealed=false
+}<
+  <TranslationInput>
+>(
+    ()=> InputTranslation
+    ()=> (ClickOnReveal ToggleRevealed FetchReview FetchSentence)
+)
+
+
+{
+    sentence=<SentenceObject>
+    review=null
+    revealed=revealed
+}<
+    <TranslationReview loading=True>
+>
+
+
+{
+    sentence=null 
+    review=<ReviewObject>
+    revealed=revealed
+}<
+  <TranslationReview loading=False>
+>
+
+
+{
+    sentence=<SentenceObject 
+    review=<ReviewObject>
+    revealed=revealed
+}<
+  <TranslationReview loading=False>
+  <NextSentenceCard>
+>(
+    ()=> ClickSentenceCard 
+)
+
+** backend
+how the fuck do i do the review?
+what do i want?
+i want...
+to know how the user did over all
+and choped up by part of sentence
+
+*** overall
+yay / nay
+feedback
+
+fuck i cant think rn.
+
+*** part of sentence
+
+** back to frontend
+did the backend. tho for now i am stubbing.
+backend calls gpt for eval. returns eval to frontend. nothing commited to db yet.
+back to the frontend.
+
+next step is the review screen. 
+too tired now
+
+* NOW
+- [X] CARD
+- [X] LOADER
+- [X] TAG
+- [X] ICON BUTTON
+- [X] INPUT
+
+- [X] translations building sentences (alpha)
+- [ ] translations UI
+
+- [ ] translations reviewing / feedbacking sentences
+- [ ] display a toast message when review happend
+
+- [ ] test & migrate to ebisu v3
+- [?] 4. create flashcards game for grammar
+
+- [ ] WordTypeEnum.migration.js
+- [ ] extend WordTypeEnum  with spacy NLP classification and my own sauce
+- [ ] create mapping between spacy NLP classification and my current enum and my target enum.
+- [ ] migrate Word type WordTypeEnum to array of Enum
+
+
+- [ ] the whole HEAD concept
+- [ ] user item relation
+
+* Milestones
+*** Milestone #2
+- [ ] translations 
+
+*** Milestone #3
+- [ ] user management ()
+
+*** Milestone #4
+- [ ] narrative layers
+- [ ] rpg game
+

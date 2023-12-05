@@ -1,0 +1,55 @@
+so i did a major brainstorm on a bunch of shit up the road. its all in the black book.
+i went from  'lets build the whole corpus logic in supabase now' to 'ok ill just build it into the current schema' to 'fuck this shit, way too difficult. i do the absolute minimum now'.
+here is the minimum:
+i create curricula for sets of vocabulario for A (a1 a2).
+and for grammar for maybe 15 verbs in 5 tenses.
+thats it.
+
+i am also kinda half adding user now. which i hate. but it makes sense to keep the first version of vivalence as a web app, it makes sense to allow access to users and each have their own learning experience and state.
+so, begrudingly i must admit that it makes sense to build the app for many users now.
+anyfuckingways.
+maybe ill make some moneymountains.
+but besides having one user in the db, i wount do anything.
+
+so whats next.
+I create curricula. specific instances in the database.
+this will require me to
+1. fill up the conjugation, verbstem, verbending datasets.
+2. create units from conjugation and vocabulario
+
+ill keep my cards open towards the question if i want to create curricula for verbstem, verbending.
+
+* NOW
+- [X] create the final color and typography system and test it on the figma components
+- [X] translations UI design
+- [X] translations schema
+
+- [ ] 1. fill up the conjugation, verbstem, verbending datasets.
+- [ ] 2. create units from conjugation and vocabulario
+- [ ] 3. create curricula for vocabulary
+- [ ] 3. create curricula for grammar
+- [ ] 4. create flashcards game for grammar
+
+- [ ] translations building sentences
+- [ ] translations reviewing / feedbacking sentences
+
+- [ ] the whole HEAD concept
+- [ ] user item relation
+
+- [ ] display a toast message when review happend
+- [X] podcast - pick timelines and chapters for philosophy and history. so the content.
+* Milestones
+*** Milestone #1
+- [X] ui brand 
+- [X] flashcards 
+
+*** Milestone #2
+- [ ] translations 
+
+*** Milestone #3
+- [ ] user management ()
+
+*** Milestone #4
+- [ ] narrative layers
+- [ ] rpg game
+

@@ -1,0 +1,109 @@
+* grammar corpus
+somewhere i got a bunch of data about grammar, verb endings and stems.
+i need to find it and put it in the database.
+
+its kind of chaotic. but useable enough not to be discarded.
+so what do i want?
+
+the way its currently modeled in the onthology is with all the verb endings and stems split out,
+and the conjugation dependent on them.
+thats cool and all but not minimal. ill rip that shit out for now to get the translations going.
+then once i have more compfort with my corpus, it can get added back in.
+
+so what do i want.
+i want a dataset of all the conjugations in my database.
+that means
+#+begin_src markdown
+    english   String
+    spanish   String
+    tense     TenseEnum
+    performer PerformerEnum
+    ending    EndingEnum
+    mood      MoodEnum
+    gender    GenderEnum
+
+    // Up
+    verb   Word   @relation(fields: [verbId], references: [id])
+    verbId String
+#+end_src
+
+i go through each verb in my database by index.
+for each verb i check if i have the list of conjugations on file.
+i check if i have all tenses, performers and moods.
+then i create them.
+# kind of stupid approach. i could also put everything i have in the db as long as it fits my schema. then check for holes. i have to check for holes anywyas. hm. i like the first better because its easyer to think. ok
+for the rest i figure out how to fill out later.
+
+so one problem is that i dont have the spanish / english division on the conjugations but i have it on the vocabulary.
+so i will be missing the ability to do flashcards at the current state. ill take a step back before running the script that populates the conjugations and look for the data.
+
+nope, only got it for gerund & subjunctivo.
+so for all performers, ill have to create it.
+
+i first put all this incompletely into the conjugations, then complete it later.
+
+
+ok i got all the conjugations loaded into the db and i have an analysis of whats missing.
+how do i do this?
+first off, ill limit myself to the top 100 verbs for now. because lol. also only the top tenses.
+so
+fetch the verbs with conjugations. 
+for each, check if i have gerundio, participio. if not, create.
+i could start there.
+then the performed imperative, indicative, subjunctives.
+
+oh right i have to do a gpt call for every single conjugation because of the english translation.
+maybe a framing of you are a grammar autocomplete API is actually better.
+
+
+
+so rn i just create a bunch of conjugations.
+but its very wastefull.
+i should be doing this more refined.
+go with the ConjugationsMap.
+for each Verb, go over each key in the conjugation map. if it doesnt have the same number of conjugatoins as defined by the map, solve.
+but rn i am just solving it with hammers and airstrikes. well i spent 1$ so far, so fuck it. artillery!!! 
+
+
+ok so i am not quite done yet generating the corpus.
+its way more work than anticipated. so much filldy shit.
+i will generate the rest in two steps.
+mass creating the first set.
+then looking for holes and overshoots and fixing thos.
+probably with time ill find issues in the content too.
+buttfuckit.
+
+
+
+
+
+* NOW
+- [ ] 1. fill up the conjugation, verbstem, verbending datasets.
+- [ ] 2. create units from conjugation and vocabulario
+- [ ] 3. create curricula for vocabulary
+- [ ] 3. create curricula for grammar
+- [ ] 4. create flashcards game for grammar
+
+- [ ] translations building sentences
+- [ ] translations reviewing / feedbacking sentences
+
+- [ ] the whole HEAD concept
+- [ ] user item relation
+
+- [ ] display a toast message when review happend
+- [X] podcast - pick timelines and chapters for philosophy and history. so the content.
+* Milestones
+*** Milestone #1
+- [X] ui brand 
+- [X] flashcards 
+
+*** Milestone #2
+- [ ] translations 
+
+*** Milestone #3
+- [ ] user management ()
+
+*** Milestone #4
+- [ ] narrative layers
+- [ ] rpg game
+

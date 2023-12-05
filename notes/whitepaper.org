@@ -1,0 +1,240 @@
+* outline
+a golden circle (what why how)
+
+roadmap for product business and company
+
+vision/mission texts
+
+elevator pitch
+
+an explanation of what i think the company architecture will be like.
+money flows, costs, stuff like that
+
+tech architecture
+what systems and components will there be.
+what processes need there be to host the systems on premise.
+how will the .com public offering be done.
+
+** Vision
+so i think a good way to formulate the vision is to take a few startups and write out why we are different.
+another method is to take a 3 timescales and write out what we want to achieve in each of them.
+another method is to articulate the value we provide to students, teachers, universities, states, culture.
+another method is to describe the moving parts of the organisation. what roles are there, what sort of people.
+
+
+** Elevator Pitch
+i need a quick clean story that i can tell that explains the problem, how our solution works, why our solution is different and better. and how we will make money and how they can help.
+
+
+** Low-Resolution Roadmap
+* what is VIVAlence
+** waste
+i usually start with the problem space or scale of problem.
+universities are wasteful by doubliction of work accross location and time. and non collaboratively itterative as their courses dont compound and aggregate their improvement from students and year after year.
+same with online platforms. their courses are once done, dont improve. 
+
+** orientation
+
+Your key frustRation arises from tutorials or guides that prescribe a series of steps to achieve a particular outcome without explaining the underlying reasons or concepts. These types of guides are fragile and unhelpful because they do not allow for adaptation to different environments or contexts. They also fail to provide insights, limiting one's ability to comprehend the bigger picture and understand why certain steps are necessary. 
+
+To address this issue, you intend to design explanations that first provide conceptual understanding and then proceed with specific actions. This approach begins by outlining the individual components and their relationships, the desired outcome, and finally the steps to attain that outcome. By doing so, users gain a superior understanding, can diagnose issue in terms of specific state divergences, and gain tools for assessing the state of their work.
+
+** principles
+
+1. courses shouldnt be done, they should learn and improve with usage. 
+- the person who has just grokked a skill might have some insight into possible improvement of the teaching of this specific skill.
+2. learning should be about skills and problem solving not knowledge. we dont need scientists we need builders and creators.
+3. dependencies between skills can be mapped. resulting in a interconnected tree of competence, or corpus. 
+- example: you need % before you can calculate interest, and you need * before you can do % and + before *.
+4. this allows for self directed learning. a learner can pick a node the corpus and because all the dependencies are mapped the software can create a custom curriculum.
+5. instruction should be done digitally, tutoring and mentoring in person.
+
+great teachers are rare and transformative.
+the person who has just learned something has somehting valuable to offer to the next person who is learning it.
+the person with deep knowledge of a subject is not necessarily a good teacher.
+teacher is essentially a social job. it is about being a guide, orianter, motivator, and a source of feedback.
+
+skill aquisition is hierarchical and traceable.
+even complex skills are made of components that can be learned intentionally.
+
+
+
+** wikipedia for competence
+
+so we will create wikipedia for competence along with a organization to sell it as a service.
+
+the graph is a corpus of skills and their dependencies.
+
+skill graph is the corpus and shared in the public domain.  collaboratively created.
+then we have the software that uses the corpus to create learning experiences. 
+then we have the organization that sells the software and the service of creating the corpus for organizations.
+
+** the solution
+*** three layers
+**** corpus
+**** application
+**** social
+
+i want to provide a graph that a user can click on any node and the software creates a course for him.
+the system can test the learners proficiency in any skill.
+the system can provide the learner with materials and games needed to grok a skill.
+the system learns about the learner and the set of all learners and can improve thus the learning experience.
+
+
+lifelong learning companion plattform.
+global digital education system.
+
+** social layer
+on top of the corpus, and  the learners experience, there can be built a social layer. where people can find either instructors for specific topics, mentor that guide them, or peers that they can collaborate with. for each of those they can see the parts of the corpus they have injested. they can see the skills they have.
+people can endose each others skills. people can assess and certify each other.
+
+
+then you have a social network of learners, mentors, and instructors.
+you can also attach that to a cv, 
+
+** what
+the .org will provide 2 'products'. 
+1. the software that the users, mentors and teachers will use to do and build learning experiences
+2. the data that constitutes the corpus. 
+
+the .com will provide 2 services. 
+1. it will install and maintain the software for a client
+
+.com service: 2. it will translate an organizations skills into the corpus.
+* GPT help
+** Methods
+*** Value Proposition Canvas Guide
+  - Helps align product/service with customer values and needs.
+
+**** Customer Profile
+   - Jobs: Identify the tasks customers want to perform or the needs they're trying to satisfy.
+   - Pains: Determine the frustrations, obstacles, or challenges customers face.
+   - Gains: Understand what customers aspire to achieve or the dreams they have.
+
+**** Value Proposition
+   - Products & Services: List out your offerings.
+   - Pain Relievers: Articulate how your product addresses customer pains.
+   - Gain Creators: Describe how your product enhances customer gains.
+
+**** Fit
+   - Measure how well your product/service matches the customer profile.
+
+*** Use Cases/Scenarios Guide
+  - Visualize user interaction and bridge technical and non-technical aspects.
+
+**** Identify Actors
+   - Define who is using the system or product and their roles.
+
+**** Define Goals
+   - Determine what the actors are trying to achieve.
+
+**** Outline the Steps
+   - Detail the sequence of actions the actors will take.
+
+**** Describe the Outcome
+   - Define what successful interaction looks like.
+
+*** Golden Circle Guide
+  - Clarify purpose (Why), process (How), and product (What).
+
+**** Why (Purpose)
+   - State your core belief and the reason your company exists.
+
+**** How (Process)
+   - Describe specific actions taken to realize the 'Why'.
+
+**** What (Product)
+   - Detail the actual product or service you offer.
+
+*** User/Customer Definition Guide
+  - Define who your customers are and how they interact with your product.
+
+**** Segment Your Customers
+   - Break down potential customers into groups with similar needs.
+
+**** Define Needs and Behaviors
+   - Identify the specific needs and behaviors of each segment.
+
+**** Prioritize Your Customers
+   - Choose which customer segments to focus on, aligning with business goals.
+
+**** Create User Personas
+   - Develop detailed personas for targeted customer segments.
+** Notes Summarized
+*** Summary
+- Aiming to the education system into the information age. designing it as if we were starting from scratch using a first principles approach. focus on skills over knowledge, being learner-centric, utilizing technology, building for bottom-up and solving the cold-start problem by providing the value as a service to companies and hijacking existing infrastructure.
+- The system is designed to augment the static nature of current educational models by providing an adaptive, skills-oriented learning environment that improves with user engagement. Hijacking existing infrastructure.
+
+*** Key Issues with Current Systems
+- Repetitive efforts of teachers across educational institutions without cumulative improvement. 
+- Lack of individualization and personalization in learning experiences. Learners dont have choice.
+- Instructional materials that fail to foster robust learning due to a lack of foundational concept explanation. students asking "Why am i learning this".
+- The learner can't provide feedback or input. Material is once-done. 
+- education is too focused on testing information assimilation. but we need creators and builders who can solve problems, not recite facts.
+
+*** "Wikipedia for Competence" Concept
+- Collaborative Skill Graph: A publicly developed and shared database of skills known as the corpus.
+- Individualized Learning Experiences: Utilizing the corpus to customize educational trajectories.
+- Social Interaction Layer: A communal platform enabling connections between learners, mentors, and instructors.
+
+*** Core Principles
+- Crowd Sourced: no central authority can or should supply all the materials. there needs to be a marketplace to supply and regulate.
+- Evolving Coursework: Learning materials must adapt and refine based on contributions from learners and teachers.
+- Skill Acquisition: The emphasis is on developing problem-solving skills, not just knowledge retention. and a builders mindset.
+- Skill Dependency Mapping: A structured "corpus" allows for the creation of personalized learning pathways.
+- Self-Directed Learning: Learners must be allowed to follow their interest and curiosity.
+- Integrated Learning Approach: Merges digital content delivery with personal mentorship and tutoring.
+
+*** The Solution - Structured into Three Layers
+   1. Corpus: A living, expansive database of skill relationships.
+   2. Application: The software framework that leverages the corpus for educational development.
+   3. Social Component: A network designed for collaborative learning, mentorship, and skill validation.
+
+*** The Solution
+product and company
+
+*** Roadmap
+**** Pre Funding Goals
+A Spanish language course to demonstrate the application layer.
+Ingestion of Fastai resources for corpus building 
+UI demonstration of the various games of the AI course
+Pitchdeck to highlight the mission, vision, roadmap, opportunities etc.
+
+
+
+** VIVAlence Education System GPT proposed narrative
+*** Introduction
+   VIVAlence represents a paradigm shift in education, integrating technological modernism with a learner-centric framework for an adaptive learning environment.
+
+*** Problem Identification
+   - Traditional education and e-learning platforms exhibit static, non-evolving content.
+   - Inefficiency and lack of progressive improvement are prevalent.
+
+*** Orientation & Approach
+   - Emphasis on foundational understanding before action.
+   - VIVAlence promotes adaptability and robust learning experiences.
+
+*** Core Principles
+   - Courses evolve with input, emphasizing a feedback loop for continuous enhancement.
+   - The curriculum is skill-based, prioritizing problem-solving over mere information.
+   - A dynamic "corpus" of skills allows for personalized educational pathways.
+   - Self-directed learning is facilitated through a digital interface.
+   - Digital instruction is complemented by personal tutoring and mentoring.
+
+*** Structure of VIVAlence
+   1. Corpus: An adaptive, collaborative skill database.
+   2. Application: Tailors learning experiences and measures skill proficiency.
+   3. Social: Connects learners, mentors, and instructors for a communal learning journey.
+
+*** Functionality
+   - Users engage with a graph of skills to personalize their learning.
+   - The platform enables peer-to-peer mentorship and skill endorsement.
+   - The system provides an organic mechanism for education, testing, and feedback.
+
+*** Conclusion
+   VIVAlence is envisioned as a transformative platform for lifelong learning, redefining the acquisition and application of skills on a global scale.
+
+
+
+
+

@@ -1,0 +1,139 @@
+* - [ ] translations building sentences
+started on the sentence generation enpoint now.
+first question.
+how do i pass the Units used to generate the sentence back and forth?
+why do i need that?
+i need to know so i can review the correct units.
+what ways can i handle that?
+i can handle that by passing the information back and forth.
+by storing it in memory / disk / cache
+or by trying to fetch on review.
+i want to fetch on review anyways. because more words will get used that the ones i prompt with.
+but thats probablistic.
+and i do want to be causal on at least the words i pass as prompt.
+
+
+should i setup logic like get next unit as a shared thing?
+there was a way i wanted to build this.
+what was it.
+i wanted to write the queries as rawsql, and store them in the mask.
+and then the js functions that filter the results too.
+but not now.
+now i hardcode.
+
+ok so i got the noun and conjugation.
+now i must prompt the model.
+
+if i use the causal method, i must at least verify that the prompted unit is present in the generation.
+
+i am not yet distinguishing between WORD and NOUN and any of these. so that will cause some weird sentences. but thats ok today.
+
+fuuuuuuuuuuuuck
+if the games filter by UnitStatusEnum (known/unknown)
+then that value CAN NOT BE ON THE UNIT!
+because that is used cross game.
+so if one game plays on a unit.
+then that would make it LEARNING for another game.
+so what. i also can put the status enum on the unituser relation then.
+or i filter on different shit.
+maybe i switch to the existence of the gameunit relation.
+
+so i have no other way with the current setup but to have all units that i learned once in one game
+be accessible to all games.
+
+ok. the change is that semantically a lot of the meaning of the UnitStatusEnum is taken over by the existence of relationships 
+
+
+next problem. the prompting strategy is too simple.
+``` prompt 
+You are generating language learning material for a user learning spanish
+Using the following constraints:
+generate a sentence in english
+and its translation in spanish:
+
+Words to be used in english:
+year, to be
+
+Words to be used in spanish:
+año, ser
+
+return this structure/format:
+{
+  "sentenceSpoken": "String",
+  "sentenceLearning": "String"
+}
+
+dont use words more advanced than those provided.
+Generate very simple sentences.
+```
+```reponse
+{
+    "sentenceSpoken": "This year is going to be great.",
+    "sentenceLearning": "Este año va a ser genial."
+}
+```
+
+
+i will build out the rest of the flow. then come back and fix this.
+i will have to build out the whole mask thing already. and pimp the corpus. cest la vie.
+
+but now i send content to the frontend.
+how do i handle the issue of providing contextual information for the review?
+i will now not do any passing of props beyond the sentences.
+ill keep it probabalistic for now.
+and keep an eye on failed matches.
+get alpha version done. no other goal.
+
+
+* - [ ] test & migrate to ebisu v3
+if i build it the way that i think i want to build it
+which is that i have one weight for each game,
+and then for the unit user relation i pool them
+and weight them by something like frequency & recency
+(or whatever functions as a reasonable weighing function)
+
+if i do that i have two ways of doing that
+either each ebisu model gets a db entry
+or i fetch them by going through the game unit relations.
+which will be complicated once i include the user on here.
+hmmm.
+ill start with fetching on demand and graduate later.
+
+do i migrate into the dark w/o testing? i shouldnt
+
+ok simplified. there is an error in the library when initializing with one variable.
+
+* NOW
+- [X] CARD
+- [X] LOADER
+- [X] TAG
+- [X] ICON BUTTON
+- [X] INPUT
+
+- [ ] test & migrate to ebisu v3
+- [ ] translations building sentences
+- [ ] translations reviewing / feedbacking sentences
+- [ ] display a toast message when review happend
+
+? - [ ] 4. create flashcards game for grammar
+
+- [ ] WordTypeEnum.migration.js
+- [ ] extend WordTypeEnum  with spacy NLP classification and my own sauce
+- [ ] create mapping between spacy NLP classification and my current enum and my target enum.
+- [ ] migrate Word type WordTypeEnum to array of Enum
+
+
+- [ ] the whole HEAD concept
+- [ ] user item relation
+
+* Milestones
+*** Milestone #2
+- [ ] translations 
+
+*** Milestone #3
+- [ ] user management ()
+
+*** Milestone #4
+- [ ] narrative layers
+- [ ] rpg game
+

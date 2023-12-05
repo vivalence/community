@@ -1,0 +1,117 @@
+two outcomes from my 2-4 week stay in aviles now.
+i want
+1. to launch the language app
+2. to launch the podcast
+
+both of these have a large tail. so i must get the dfinitions right.
+first the app.
+i want flashcards and translations for now. feeding of grammar and vocabulary.
+but also i want to have figured out how i feed the translation back into the learning model.
+so rn the model is located on the game-unit side.
+but there must also be a unit user relation that keeps track of the known/unknown status, and the encounters the user has had with a bit of information.
+this is an issue.
+then i want user management. mutliple users signing in and having their own statis.
+and i want narrative layers.
+and i want the rpg game.
+all the ui brand conform.
+
+then i want the podcast to have its first episode recorded.
+before i want to have the board populated at least once in its fullness. one arch over the entire thing. from 3k bce to 2k ce.
+also i need the intro music.
+and i must practice my speaking. 
+
+so first lesson is about welcoming to the pod and about philosophy of education.
+and i must have the pre history chapter in the bag.
+
+* To be Done
+** APP
+*** Milestone #1
+- [ ] ui brand 
+- [ ] flashcards 
+
+push to prod. this includes a migration of the db. probably just an overwrite.
+
+*** Milestone #2
+- [ ] translations 
+
+*** Milestone #3
+- [ ] user management
+
+*** Milestone #4
+- [ ] narrative layers
+- [ ] rpg game
+
+* thinking
+i want to feed the translation back into the learning model.
+ie from the user doing a translation must come learning about the users mastery of all the components of the translation.
+
+
+rn the model is located on the game-unit side.
+but there must also be a unit user relation
+that keeps track of the known/unknown status, and the encounters the user has had with a bit of information.
+
+how tf do i update and maintain that??
+how do i do this with flashcards. i dont want to just copy from the game unit relation to the user unit relation and have the same model on both and also i want the flashcards to take a failed / successfull repetition into account. hmmm.
+so either i keep them separate and keep something like a todo list for the flashcards game where when the game is fired up, before it goes through the existing sources of cards it takes this list into account and works through it. not great. too much details and bla.
+or i go back to an idea i had earlier about there being a special type of game, the assessment, that works on the unit user relation and dont maintain its own game unit state.
+whats that ankered on? probably the unit type. so every unit type has a method associated that tests a users mastery of the unit. and other games can write information to the assessment. i like this better but it increases schema complexity.
+i could keep it folded in in the game system and just mark one game as the assessing game. then whenever a game has something to say about the unit user relation it writes it to the game-unit relation thats marked as assessing. hmm. no.
+ok what if the assessing game writes its state to the unituser relationship. but i dont want the game resolvers to know about that.
+hmmmmmmm
+hmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+damn.
+
+so what is the problem.
+i want games to inform unit user relations.
+hey. idea.
+what if i let the game consume that unit user relationship and each game takes from it what it wants and cants.
+and then it also writes to it. i just make it part of the context. as i will with the HEAD. for example if the the flashcards game picks a unit, ... well it must have access to all unit user relations... which is ok i guess; then the flashcards picks its unit and cardifys it.
+the user reviews, and maybe fe. if the unit user relation shows a successfull review somewhere else it could decide to boost the repetition time.
+
+what if i abandon the game-unit relations model accross all games be them flashcards or translations. and keep one unified model of the users mastery.
+that would simplify a lot but throw up barrieres and forceing functions elsewhere. hmmmmmmm
+hmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+
+
+i want games to influence each other. i can do that by creating multi lateral relation ships or by centralizing.
+
+how do i keep memory models in sync if i spread the state?
+through the HEAD. if the head is the set of unit user relations. 
+maybe as part of game init the game is passed the head and can update itself.
+and this would make the unit user relations the first property of the head. and the ability to write a shared memory state object as the first function of it. 
+i could keep this timeboxed to either the last n sessions, or the game keeps a timestamp and only learns about the delta.
+i like this.
+seems scalable. separation of concerns, no way to fuck up another games state, what passes is information, not control. ill go with this.
+
+
+so unit user relation has memory model and a history.
+the head provides the unit user relations to the games, as well as the curriculum that the game is based in, and the ability to update the shared memory model. but never to scale it! and from that is computed the known/unknown status. cool. 
+
+so i got a change to the schema and and extension to the resolvers.
+schema change is the addition of a unit user relation where i ... actually the unit is unique per user and persitent over curricula. so i keep this there.
+
+then its only a property change. add a memory model and history. what goes into the history? information about success and failure from accross all the games. 1-5 1=great failure, 5=great success. maybe
+
+then i create this head object.
+
+head {
+  units [{
+    memory
+    history
+  }]
+  curriculum {...}
+  controls {
+    writeMemory(unit, status)
+  }
+}
+
+i dont want to rebuild this for each interaction, some caching is required. probably its enough to recompute that once per gamechange. if lastgameid===thisgameid () else recompute()
+
+
+then the flashcards game can pull cards that failed in other games recently. and write them to correct fOR success elsewhere. and the narrative can influence the assessment and the flashcards game.
+
+
+* how do i construct curricula and units for new users?
+
+
+* Podcast

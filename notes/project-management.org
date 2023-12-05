@@ -1,0 +1,29 @@
+* brand 
+*** brand developed
+identitiy and ci
+audio snippet for into/outro.
+then a pretty unclear process around brand development. do i get help here?
+anna? marco? i dont think that will work.
+there are a bunch of assets required. logo, episode images, descriptive text. not yet a website.
+
+** ci
+font
+colors
+logo
+ui
+
+** identity
+why what how
+
+* podcast
+i'd like to have multiple episodes scripted. maybe like the geology guy with planned seasons covering the entire subject. then season by season going era by era.
+
+
+* spanish app
+** deploy
+i have the spanish alpha to deploy
+** development
+then i continue working on the backend / schema of the language by implementing nodes, curriculum, games and assessment
+then an actual game
+visualization of corpus
+session manager

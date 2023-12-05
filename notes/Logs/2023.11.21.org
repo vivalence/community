@@ -1,0 +1,43 @@
+* To be Done
+- [X] Migrated Prod DB
+- MID trying to understand how the query and mutation are to be used from houdini.
+  then ill update the store with the server responses from the new cards and the update response.
+  then i continue with pushing to prod.
+
+- [ ] push to prod. this includes a migration of the db. probably just an overwrite.
+- [ ] create the final color and typography system and test it on the figma components
+- [ ] podcast - pick timelines and chapters for philosophy and history. so the content.
+
+* push to prod
+# get access to the server
+PENDING change the domain
+
+check if the app is working
+migrate the postgres prod instance
+overwrite / replace the postgres data
+
+deploy the actual app. 
+
+* Milestones
+*** Milestone #1
+- [ ] ui brand 
+- [ ] flashcards 
+
+*** Milestone #2
+- [ ] translations 
+
+*** Milestone #3
+- [ ] user management ()
+
+*** Milestone #4
+- [ ] narrative layers
+- [ ] rpg game
+
+
+
+* high level themes and question
+** PM question: how do i split milestones and tasks or tdbd?
+** how to implement the head
+** how do i construct curricula and units for new users?
+
+- [ ] there was something else with the podcast maybe?

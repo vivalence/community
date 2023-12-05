@@ -1,0 +1,46 @@
+* To be Done
+- [X] Migrated Prod DB
+- MID trying to understand how the query and mutation are to be used from houdini.
+  then ill update the store with the server responses from the new cards and the update response.
+  then i continue with pushing to prod.
+
+- [X] app is working again
+- [X] push to prod. this includes a migration of the db. probably just an overwrite.
+
+- [ ] create the final color and typography system and test it on the figma components
+- [ ] podcast - pick timelines and chapters for philosophy and history. so the content.
+
+* color and type system in figma
+# 16 color wheel + b/w
+# gradients for each
+into figma & tailwind
+# pick key colors
+# test them on components
+# backgrounds, text, buttons, borders, containers.
+# cards, navbar, control bar.
+
+* push to prod
+# get access to the server
+PENDING change the domain
+
+# check if the app is working
+# migrate the postgres prod instance
+# overwrite / replace the postgres data
+
+# deploy the actual app. 
+
+* Milestones
+*** Milestone #1
+- [ ] ui brand 
+- [ ] flashcards 
+
+*** Milestone #2
+- [ ] translations 
+
+*** Milestone #3
+- [ ] user management ()
+
+*** Milestone #4
+- [ ] narrative layers
+- [ ] rpg game
+

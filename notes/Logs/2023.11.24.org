@@ -1,0 +1,115 @@
+* Milestones
+*** Milestone #1
+- [X] ui brand 
+- [X] flashcards 
+
+*** Milestone #2
+- [ ] translations 
+
+*** Milestone #3
+- [ ] user management ()
+
+*** Milestone #4
+- [ ] narrative layers
+- [ ] rpg game
+
+* NOW
+- [X] create the final color and typography system and test it on the figma components
+- [X] translations UI design
+- [ ] translations schema
+- [ ] translations building sentences
+- [ ] translations reviewing / feedbacking sentences
+- [ ] the whole HEAD concept
+- [ ] user item relation
+
+- [ ] display a toast message when review happend
+- [ ] podcast - pick timelines and chapters for philosophy and history. so the content.
+
+
+* moved on to translations
+i designed some simple layouts. quite happy with them tbh. so ui is done.
+
+so now its about the schema and the logic. for this, what do the requests look like?
+i got two interactions. one for sentence creation one for sentence review.
+each must also contain a prompt text.
+
+** create sentence
+*** Request
+#+begin_src js
+  {
+    "constraints": {
+      "spokenLanguage": "English",
+      "learningLanguage": "Spanish",
+      "words": [
+        {
+          "spoken": "string",
+          "learning": "string"
+        }
+      ],
+      "grammar": {
+        "verb": "string",
+        "tense": "string",
+        "performer": "string",
+        "mood": "string"
+      }, 
+      "lenght": "Integer"
+    }
+  }
+  #+end_src
+*** prompt
+*** Response
+#+begin_src js
+  {
+    "sentence": {
+      "spoken": "string",
+      "learning": "string"
+    }
+  }
+  #+end_src
+
+** review sentence
+*** Request
+#+begin_src js
+  {
+    "constraints": {
+      "spokenLanguage": "string",
+      "learningLanguage": "string",
+      "words": [
+        {
+          "learning": "string",
+          "spoken": "string"
+        }
+      ],
+      "grammar": {
+        "verb": "string",
+        "tense": "string",
+        "performer": "string",
+        "mood": "string"
+      }
+    },
+    "spokenPrompt": "string",
+    "learningExpected": "string",
+    "learningProvided": "string"
+  }
+  #+end_src
+
+*** prompt
+*** response
+#+begin_src js
+  {
+    "key-components": [
+      {
+        "tags": []
+        "input": ""
+        "correction": "" // optional
+        "review": ENUM
+        "explanation": "" // optional
+      }
+   ],
+    "feedback": "" // SHORT sentence summary
+    "": "" // i should have some leaniency since one sentence can have multiple translations,
+    // so the source of truth translation can change in response to the approach the user took.
+    // how i facilitate that, no clue
+  }
+
+#+end_src

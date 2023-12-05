@@ -1,0 +1,41 @@
+so i think now the problem i have with the different corpus types is that the units smush that down to just
+word or conjugation
+i need to have more richness in the query. more enum. or migrate to tags
+* NOW
+- [X] 2. create units from conjugation in units.conjugation.js
+
+- [x] 3. create curricula for vocabulary in curriculums.vocabulario.js
+- [x] 3. create curricula for grammar in curriculums.grammar.js
+
+? - [ ] 4. create flashcards game for grammar
+
+- [X] CARD
+- [ ] LOADER
+- [X] TAG
+- [X] ICON BUTTON
+- [ ] INPUT
+
+- [ ] translations building sentences
+- [ ] translations reviewing / feedbacking sentences
+- [ ] display a toast message when review happend
+
+- [ ] WordTypeEnum.migration.js
+- [ ] extend WordTypeEnum  with spacy NLP classification and my own sauce
+- [ ] create mapping between spacy NLP classification and my current enum and my target enum.
+- [ ] migrate Word type WordTypeEnum to array of Enum
+
+
+- [ ] the whole HEAD concept
+- [ ] user item relation
+
+* Milestones
+*** Milestone #2
+- [ ] translations 
+
+*** Milestone #3
+- [ ] user management ()
+
+*** Milestone #4
+- [ ] narrative layers
+- [ ] rpg game
+

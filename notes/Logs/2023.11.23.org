@@ -1,0 +1,20 @@
+* Milestones
+*** Milestone #1
+- [X] ui brand 
+- [X] flashcards 
+
+*** Milestone #2
+- [ ] translations 
+
+*** Milestone #3
+- [ ] user management ()
+
+*** Milestone #4
+- [ ] narrative layers
+- [ ] rpg game
+
+* NOW
+- [X] create the final color and typography system and test it on the figma components
+- [ ] display a toast message when review happend
+- [ ] podcast - pick timelines and chapters for philosophy and history. so the content.
+
