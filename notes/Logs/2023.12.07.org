@@ -1,0 +1,478 @@
+* wtf do i do about the corpus and the game sourcing
+so problem is that i must provide way more details to the llm to generate adequate sentences. currently the generated sentences are completely out of league for beginners. there must be some sort of mechanism, or a set of, to control that.
+
+i could pass in examples
+i could pass in directions on the expected difficulty
+i should do both of those.
+i could go as far as pre defining a set of sentences for the user. lol reinvent glossika. no.
+
+so here is what i want to do. i want to....
+ok ill do it simple for me now. i dont think about generation of the curriculum. i just assume the curriculum will be poopulated with what i need. i know thats another problem for the future.
+so what i do now is just focus on th egame.
+one sentece generation.
+i need to pass. or i want to pass for this firrt game for there will be many others that might work differently.
+th efirt game consists of
+i construct one sentence by choosing a tense and performer, picking a verb for it. then i add an adverb. and i probably shouldnt just prompt one  per category. but multiple. so the sentences have a chance of making sense.
+also ill pass the IDs and transport them back and forth.
+
+there is a large rats tail to this.
+how must the corpus look to be possibly allowing this?
+the units must have tags. what do i base those tags on? probably the nlp classification from spacey.
+my sense for how this looks in detail is kinda vague and i dont know if i am making the right choices.
+
+ok before i go insane ill try some prompts 
+
+#+BEGIN_SRC javascript
+ `
+You are generating language learning material for a user learning ${learning}
+Using the following constraints:
+generate a sentence in ${spoken}
+and its translation in ${learning}:
+
+Words to be used in ${spoken}:
+${inputs.map((w) => w.data[spoken]).join(", ")}
+
+Words to be used in ${learning}:
+${inputs.map((w) => w.data[learning]).join(", ")}
+
+return this structure/format:
+{
+  "sentenceSpoken": "String",
+  "sentenceLearning": "String"
+}
+
+dont use words more advanced than those provided.
+Generate very simple sentences.
+`
+#+end_src
+this is the current prompt.
+
+i must add the performer and tense. i must add the fitting conjugation.
+
+then i can try a few combinations of words.
+i want to try:
+pronouns
+adverbs
+conjunctions
+prepositions
+particles
+nouns
+adjectives
+verbs 
+articles
+
+so long term there will be such variability in this game and the intended learning and the prompting strategies that follow that.
+but today i have the learning goal of tenses. so thats what i am doing.
+
+other learning intent, other prompt.
+fuck its so hard to make it this dumb.
+
+** TESTS
+i will test with
+PRESENTE NOSOTROS_NOSOTRAS
+PRETERITO TU
+CONDICIONAL EL_ELLA_USTED
+*** pronouns
+
+
+#+BEGIN_SRC javascript
+ `
+You are generating language learning material for a user learning ${learning}
+Using the following constraints:
+generate a sentence in ${spoken}
+and its translation in ${learning}:
+
+Words to be used in ${spoken}:
+${inputs.map((w) => w.data[spoken]).join(", ")}
+
+Words to be used in ${learning}:
+${inputs.map((w) => w.data[learning]).join(", ")}
+
+return this structure/format:
+{
+  "sentenceSpoken": "String",
+  "sentenceLearning": "String"
+}
+
+dont use words more advanced than those provided.
+Generate very simple sentences.
+`
+#+end_src
+
+
+
+
+
+
+
+
+No i am getting to complicated with that whole test campaign.
+
+*** differenently
+
+#+begin_src 
+You are generating language learning material for a user learning spanish.
+generate a sentence in english and its translation in spanish:
+
+Using the following constraints:
+The learner is at level Beginner.
+The learner is learning the usage of specific tenses, verb conjugations, pronouns, nouns and adjectives. so the sentence you generate must follow the constraints.
+
+Tense: PRESENTE 
+Person: NOSOTROS_NOSOTRAS
+Pronoun: Direct Object 
+verb (conjugated): estamos
+noun: (one of) [idea, voz, tierra]
+adjective: (one of) [más, último, ambos]
+
+return this structure/format:
+{
+  "sentenceSpoken": "String",
+  "sentenceLearning": "String"
+}
+
+dont use words more advanced than those provided.
+Generate very simple sentences.
+#+end_src
+
+#+begin_src 
+{
+"sentenceSpoken": "We are hearing both voices.",
+"sentenceLearning": "Estamos escuchando ambas voces."
+}
+#+end_src
+
+ok so i just had a conversation with gpt about this sentence. there are more nuances than i prompted.
+verb in participle.
+the direct object pronoun isnt explicit. 
+gendererd & counting adjective.
+
+i want all of this to be having a model in my system and a factor predicting its learning. 
+fuck this is a lot.
+ok. how.
+
+there are two related problems here. one is that i need to somehow build the corpus that encodes this.
+but then i also need to have this available to the application space where i maintain some model of the thing.
+so wtf.
+
+what if i maintain tags like
+tenses-X,
+moods-X,
+article-definite,
+article-indefinite,
+pronoun-posessive,
+pronous-reflexive, 
+
+and they get learned as much as any specific noun might be.
+so but there is another problem then. some classes of lets say articles definite are a function of both my usage of them as well as the sum of each individual. ebisu v3 can handle that if i aggregate all models for the members of a class as well as the model for the tag and then weigh them. that works. how i get there is a wtf problem.
+
+ok so how i do this
+i setup the ontology, which is these types.
+i fill the database with that ontology. all different tables.
+then when i load that into my application, the ontology serves as tags.
+each unit is taged.
+the tags can be learned as much as the units.
+when i create a sentence, i construct with tags in mind.
+i provide the llm with the ontology and the llm provides details about the ontological makeup of the generated sentence.
+and on review it provides feedback on the ontological makeup of the mistakes.
+
+that would be the dream.
+what ill do now is to setup the ontology following what spacey uses. ill categorize my current corpus in that light.
+
+** onthology
+TEXT: The original word text.
+LEMMA: The base form of the word.
+POS: The simple part-of-speech tag.
+TAG: Detailed part-of-speech tag.
+
+**** UD POS
+***** semantic
+ADJ: Adjective - words that typically describe or modify the meaning of a noun (e.g., "big", "old").
+ADV: Adverb - words that typically modify an adjective, verb, or other adverb (e.g., "very", "well").
+INTJ: Interjection - words that express emotions or sentiments (e.g., "oh", "wow").
+NOUN: Noun - words that denote a person, place, thing, or idea (e.g., "dog", "city").
+PROPN: Proper noun - names of specific individuals, places, organizations, etc. (e.g., "John", "Paris").
+VERB: Verb - words that denote actions, states, or occurrences (e.g., "run", "is").
+ADP: Adposition - prepositions and postpositions (e.g., "in", "to").
+AUX: Auxiliary verb - words that accompany the main verb and help to express grammatical mood, tense, voice (e.g., "is", "has").
+CONJ: Conjunction - words that connect words, phrases, clauses, or sentences (e.g., "and", "but").
+DET: Determiner - words that modify nouns or noun phrases and express the reference of the noun in the context (e.g., "the", "a", "some").
+NUM: Numeral - words that represent numbers (e.g., "one", "two", "first").
+PART: Particle - function words that do not fit into the other categories but are essential for the syntax of the sentence (e.g., "not", "out").
+PRON: Pronoun - words that substitute for nouns or noun phrases (e.g., "he", "they").
+SCONJ: Subordinating conjunction - words that introduce a subordinate clause (e.g., "that", "if").
+SYM: Symbol - words that function as symbols or signs rather than linguistic expressions (e.g., "%", "+").
+X: Other - a category used for words that do not fit into any of the above categories.
+PUNCT: Punctuation - symbols that punctuate and organize written text (e.g., ".", ",").
+
+***** UD POS JSON map
+{
+    "ADJ": "ADJECTIVE",
+    "ADP": "ADPOSITION",
+    "ADV": "ADVERB",
+    "AUX": "AUXILIARY",
+    "CCONJ": "COORDINATINGCONJUNCTION",
+    "DET": "DETERMINER",
+    "INTJ": "INTERJECTION",
+    "NOUN": "NOUN",
+    "NUM": "NUMERAL",
+    "PART": "PARTICLE",
+    "PRON": "PRONOUN",
+    "PROPN": "PROPERNOUN",
+    "PUNCT": "PUNCTUATION",
+    "SCONJ": "SUBORDINATINGCONJUNCTION",
+    "SYM": "SYMBOL",
+    "VERB": "VERB",
+    "X": "OTHER"
+}
+
+**** old ontology to UD map
+{
+    "ART": ["DETERMINER"],
+    "ADJ": ["ADJECTIVE"],
+    "ADV": ["ADVERB"],
+    "CONJ": ["COORDINATING_CONJUNCTION", "SUBORDINATING_CONJUNCTION"],
+    "F": ["GENDER_FEMININE"],
+    "MINUS_FAM": ["POLITE_FORMAL"],
+    "PLUS_FAM": ["POLITE_INFORMAL"],
+    "INTERJ": ["INTERJECTION"],
+    "M": ["GENDER_MASCULINE"],
+    "N": ["GENDER_NEUTER"],
+    "NC": ["NOUN"],
+    "NF": ["NOUN", "GENDER_FEMININE"],
+    "NF_EL": ["NOUN", "GENDER_FEMININE", "DEFINITE_DEFINITE"],
+    "NM": ["NOUN", "GENDER_MASCULINE"],
+    "NMF": ["NOUN"],
+    "NM_F": ["NOUN"],
+    "NUM": ["NUMERAL"],
+    "OBJ": ["PRONTYPE_PERSONAL"],
+    "DIR_OBJ": ["PRONTYPE_PERSONAL"],
+    "INDIR_OBJ": ["PRONTYPE_PERSONAL"],
+    "PL": ["NUMBER_PLURAL"],
+    "PREP": ["ADPOSITION"],
+    "PRON": ["PRONOUN"],
+    "SG": ["NUMBER_SINGULAR"],
+    "SUBI": ["PRONTYPE_PERSONAL"],
+    "V": ["VERB"],
+    "SPEAKERS": []
+}
+
+
+***** UD TAGs
+Abbr: Abbreviation
+AdpType: Type of adposition (preposition, postposition, circumposition)
+AdvType: Type of adverb (general, modal, manner, time, etc.)
+Animacy: Animacy distinction
+Aspect: Aspect (imperfective, perfective, progressive, etc.)
+Case: Case (nominative, accusative, genitive, dative, etc.)
+Clusivity: Clusivity (inclusive, exclusive)
+Definite: Definiteness or state (definite, indefinite, specific)
+Degree: Degree of comparison (positive, comparative, superlative)
+Echo: Echo word or mimetic
+Evident: Evidentiality (direct, indirect, reported, etc.)
+Foreign: Foreign word
+Gender: Gender (masculine, feminine, neuter)
+Mood: Mood (indicative, imperative, subjunctive, etc.)
+NounClass: Noun class
+NumForm: Numeral form (digit, roman, word)
+NumType: Numeral type (cardinal, ordinal, multiplier, etc.)
+Number: Number (singular, plural, dual, etc.)
+PartType: Type of particle (modal, negative, etc.)
+Person: Person (first, second, third)
+Polarity: Polarity (positive, negative)
+Polite: Politeness (informal, formal)
+Poss: Possessive (yes, no)
+PronType: Pronoun type (personal, demonstrative, reflexive, etc.)
+Reflex: Reflexive (yes, no)
+Register: Register (formal, informal, vulgar, etc.)
+Tense: Tense (past, present, future, etc.)
+Typo: Typographical error
+VerbForm: Verb form (finite, infinitive, participle, gerund)
+VerbType: Verb type (main, modal, auxiliary, etc.)
+Voice: Voice (active, passive, middle)
+
+***** Prisma Enums
+enum UD_POS {
+    ADJECTIVE,
+    ADPOSITION,
+    ADVERB,
+    AUXILIARY,
+    CONJUNCTION_COORDINATING,
+    CONJUNCTION_SUBORDINATING,
+    DETERMINER,
+    INTERJECTION,
+    NOUN,
+    NUMERAL,
+    PARTICLE,
+    PRONOUN,
+    PROPERNOUN,
+    PUNCTUATION,
+    SYMBOL,
+    VERB,
+    OTHER
+}
+
+
+enum UD_TAG {
+    ABBR_ABBREVIATIO
+    ADPTYPE_PREPOSITION
+    ADPTYPE_POSTPOSITION
+    ADPTYPE_CIRCUMPOSITION
+    ADVTYPE_GENERAL
+    ADVTYPE_MODAL
+    ADVTYPE_MANNER
+    ADVTYPE_TIME
+    ANIMACY_ANIMATE
+    ANIMACY_INANIMATE
+    ASPECT_IMPERFECTIVE
+    ASPECT_PERFECTIVE
+    ASPECT_PROGRESSIVE
+    CASE_NOMINATIVE
+    CASE_ACCUSATIVE
+    CASE_GENITIVE
+    CASE_DATIVE
+    CLUSIVITY_INCLUSIVE
+    CLUSIVITY_EXCLUSIVE
+    DEFINITE_DEFINITE
+    DEFINITE_INDEFINITE
+    DEFINITE_SPECIFIC
+    DEGREE_POSITIVE
+    DEGREE_COMPARATIVE
+    DEGREE_SUPERLATIVE
+    ECHO_ECHO
+    EVIDENT_DIRECT
+    EVIDENT_INDIRECT
+    EVIDENT_REPORTED
+    FOREIGN_FOREIGN
+    GENDER_MASCULINE
+    GENDER_FEMININE
+    GENDER_NEUTER
+    MOOD_INDICATIVE
+    MOOD_IMPERATIVE
+    MOOD_SUBJUNCTIVE
+    NOUNCLASS_NOUN_CLASS
+    NUMFORM_DIGIT
+    NUMFORM_ROMAN
+    NUMFORM_WORD
+    NUMTYPE_CARDINAL
+    NUMTYPE_ORDINAL
+    NUMTYPE_MULTIPLIER
+    NUMBER_SINGULAR
+    NUMBER_PLURAL
+    NUMBER_DUAL
+    PARTTYPE_MODAL
+    PARTTYPE_NEGATIVE
+    PERSON_FIRST
+    PERSON_SECOND
+    PERSON_THIRD
+    POLARITY_POSITIVE
+    POLARITY_NEGATIVE
+    POLITE_INFORMAL
+    POLITE_FORMAL
+    POSS_POSSESSIVE
+    PRONTYPE_PERSONAL
+    PRONTYPE_DEMONSTRATIVE
+    PRONTYPE_REFLEXIVE
+    REFLEX_REFLEXIVE
+    REGISTER_FORMAL
+    REGISTER_INFORMAL
+    REGISTER_VULGAR
+    TENSE_PAST
+    TENSE_PRESENT
+    TENSE_FUTURE
+    TYPO_TYPOGRAPHICAL_ERROR
+    VERBFORM_FINITE
+    VERBFORM_INFINITIVE
+    VERBFORM_PARTICIPLE
+    VERBFORM_GERUND
+    VERBTYPE_MAIN
+    VERBTYPE_MODAL
+    VERBTYPE_AUXILIARY
+    VOICE_ACTIVE
+    VOICE_PASSIVE
+    VOICE_MIDDLE
+}
+*** Docs
+**** verb types
+VERBTYPE_MAIN: This likely refers to main verbs or principal verbs. In a sentence, a main verb is the one that expresses the primary action or state of being. It is the verb that carries the core meaning of the sentence. For example, in "She reads a book," "reads" is the main verb.
+VERBTYPE_MODAL: Modal verbs are auxiliary verbs that express necessity, possibility, permission, or ability. They are used alongside a main verb to modify its meaning. Common modal verbs in English include "can," "could," "may," "might," "must," "shall," "should," "will," and "would." For instance, in the sentence "She can play the piano," "can" is a modal verb modifying the main verb "play."
+VERBTYPE_AUXILIARY: Auxiliary verbs, also known as helping verbs, are used together with a main verb to form verb tenses, voices, or moods. They add functional or grammatical meaning to the clause. In English, the primary auxiliary verbs are "be," "have," and "do." They are used in forming tenses (like the continuous or perfect aspects) and in forming negatives and questions. For example, in the sentence "She is singing," "is" is an auxiliary verb helping to form the present continuous tense of the main verb sing.
+
+
+
+**** adposition & adptypes
+In linguistics, the terms ADPTYPE_PREPOSITION, ADPTYPE_POSTPOSITION, and ADPTYPE_CIRCUMPOSITION refer to types of adpositions, which are a class of words that express spatial or temporal relations (like location, direction, or time) or mark various semantic roles. Here are explanations and examples for each, particularly in the context of Spanish:
+
+ADPTYPE_PREPOSITION:
+
+Prepositions are words that precede a noun (or a pronoun) to form a phrase, typically indicating a relationship of place, time, manner, or cause.
+Example in Spanish: "en" (in), "sobre" (on), "con" (with).
+Example sentence: "El libro está sobre la mesa." (The book is on the table.)
+ADPTYPE_POSTPOSITION:
+
+Postpositions are similar to prepositions but come after the noun they modify. While not common in Spanish, they exist in other languages.
+Example in Spanish: While Spanish is predominantly a prepositional language, some phrases function in a postpositional manner, like "mesa adentro" (inside the table), where "adentro" comes after the noun.
+ADPTYPE_CIRCUMPOSITION:
+
+Circumpositions involve a phrase where one part comes before and another part comes after the noun or pronoun, essentially surrounding it.
+Example in Spanish: Spanish doesn’t typically use circumpositions, but a constructed example could be "alrededor de la mesa" (around the table), where "alrededor de" surrounds "la mesa."
+
+
+* post pos in db
+ok so i got the wordtype migrated to pos
+
+what now?
+got the POS types and Gender and politeness tags
+thats not enough.
+
+what else i need?
+and where do i put it?
+
+this must include a mechanism by which i continuously increase the accuracy of the classification.
+this could include running the generation through the nlp lib and uppushing any tag into the  pos. not at runtime. that should just  get banked and improved on later.
+
+i need the teneses,
+performer
+? mood
+aux / modal / main verb?
+pronouns
+adverbs
+
+* pre end
+so i generated the largest list of Part of speech nuance.
+and NOW NOW i wount use it.
+ill try the generation with just template POS what comes out of UD.
+i generated a bunch of sentences and it actually worked kind of ok. probably ill learn more by now actually using the system.
+which i will. tomorrow.
+i tested having GPT pick the ids of the words it used and that worked perfectly.
+so ill be passing that shit back and forth.
+a big subject will be the progression algorithm and how i map flashcards onto translations.
+so many questions. no wonder nobody did that before.
+
+
+* NOW
+- [X] extend WordTypeEnum  with spacy NLP classification and my own sauce
+- [X] create mapping between spacy NLP classification and my current enum and my target enum.
+- [X] WordTypeEnum.migration.js
+- [X] migrate Word type WordTypeEnum to array of Enum
+
+- [ ] migrate POS from spanish ontology to application ie update a bunch of units. 
+- [ ] update the sentence generation function
+
+- [ ] display a toast message when review happend
+- [ ] test & migrate to ebisu v3
+- [ ] create flashcards game for grammar
+- [ ] the whole HEAD concept
+- [ ] user item relation
+
+* Milestones
+*** Milestone #2
+- [ ] translations 
+
+*** Milestone #3
+- [ ] user management ()
+
+*** Milestone #4
+- [ ] narrative layers
+- [ ] rpg game
+

@@ -1,0 +1,104 @@
+* migration pos to unit
+so i created the ontology tags enum which holds all the various types and tags a unit can inherit from its ontology.
+now i must figure out how ill set that up on the unit.
+there are two types of units. one words one conjugation. they require different information.
+conjugation contains all that info on tense asf. i must create a mapping of what enums i have on ontology side and which on unit side.
+
+i start there.
+wait
+maybe it makes more sense to not make them enums but objects.
+i can make objects learnable. i can change their names. i can do all kinds of things on objects i cant do on enums. hmmm. lets say i do that on the application level. do i also do it on the ontology level?
+so many decisions.
+no ill start with that on just the application side.
+do i create a unittag relation?
+if a tag is learnable.
+no it then needs a taguserrelation.
+word.
+this whole xyrelation thing is either the most genius or the dumbest shit ever. time will tell.
+ok then i must first create the tags.
+ok tags created. what now
+now i must itterate over the conjugations and create the tag unit relations by name
+conjugations are running.
+now the words. 
+in words i have to map each key in the partofspeechenum to the tags. so one property.
+actually i just must map the enum onto the the same name.
+but i forgot to add the Verb conjugation tag to  
+
+ok alldone. tags created and connected to units. now what.
+back to the sentence generation.
+and then pipe it to the frontend.
+
+ok so how do i 
+build the prompt now?
+from curriculum, filter on tags.
+i start on the curriculum and include units matching x? 
+i can find units by tags.
+ok
+thats nice
+now
+i must define the sets of tags i want to filter on
+ie that i want to prompt with
+and then i must define a number of those units
+then what.
+prompt.
+
+i have a function for filtering by tags for new units and one for playing units.
+
+but i am still now really compfy. kind of unsure how to prompt.
+i guess no way but through. ill just do the unsure thing.
+
+making tags into objects made some devx tasks very shit
+
+for some reason i dont have adjectives done correctly.
+i did. i jsut didnt include any adjectives in the curriculum.
+this gets to one of the hurdles of this approach.
+i am going to have to include all the tags in the curriculum that go into a sentence and i must include a lot of specificity in the sentence prompt to create good sentences.
+its in that sense not really very good at isolating.
+hmm.
+one way to solve would be to make curricula recursive. a curriculum can contain other curricula.
+leads to circularity.
+hmm
+it should be able to contain tags.
+maybe a curricula can contain functions and be build from them.
+hmm such a clusterfuck.
+well i need more units in the curriculum rn so ill just spam some shit in there.
+
+i need
+grammar ie
+performer
+tense
+conjugations
+
+i want
+pronouns
+nouns
+adverbs
+adjectives 
+
+shit its 2. i must do that tomorrow.
+ok tomorrow i add these to the curriculum. then i continue prompting. fuck i am never getting to it.
+this is too complicated for my little brain.
+
+* NOW
+- [X] create Tags
+- [X] migrate POS from spanish ontology to application ie update a bunch of units. 
+- [ ] update the sentence generation function
+
+- [ ] user item relation
+
+- [ ] display a toast message when review happend
+- [ ] test & migrate to ebisu v3
+- [ ] create flashcards game for grammar
+- [ ] the whole HEAD concept
+
+* Milestones
+*** Milestone #2
+- [ ] translations 
+
+*** Milestone #3
+- [ ] user management ()
+
+*** Milestone #4
+- [ ] narrative layers
+- [ ] rpg game
+
