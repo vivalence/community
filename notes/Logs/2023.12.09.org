@@ -1,0 +1,329 @@
+* units for the curriculum
+i need more units in the curriculum rn so ill just spam some shit in there.
+
+i need
+    grammar ie
+        performer
+        tense
+        conjugations
+
+i want
+    pronouns
+    nouns
+    adverbs
+    adjectives 
+
+
+working on curriculums . testtranslation seeding
+that whole folder is a mess.
+aaas fuck.
+newest inssight into the mess:
+storing the computed index in the data of the unit was a mistake. doesnt belong there. i guess it dont matter thow. since the units are jsut connected not updated. 
+added
+
+
+const PullMap = [
+    "VERB_CONJUGATION",
+    NOUN,
+    ["ADJECTIVE", 1000],
+    ["ADPOSITION", 5000],
+    ["ADVERB", 1050],
+    ["NUMERAL", 5000],
+    ["PRONOUN", 5000],
+    ["VERB", 300],
+];
+which resulted in
+
+console.log("words", units.length, words.length, tagName, indexLimit);
+words 146 146 ADJECTIVE 1000
+words 28 28 ADPOSITION 5000
+words 64 64 ADVERB 1050
+words 36 36 NUMERAL 5000
+words 40 40 PRONOUN 5000
+words 78 78 VERB 300
+= 392
+curriculum now has 808 units.
+top index is  944
+so widely out of whack. cool. the poor guy after me will have a shit time cleaning this up.
+wait i am the guy after me.
+there is noone its just me.
+
+anyways.
+whats next
+
+back to sentence generation.
+    "VERB_CONJUGATION",
+    NOUN,
+are also present in the curriculum
+so i think i got all in place to start generating sentences and sending them to the frontend.
+then i change my vantage point and run the whole app again. cool. lets go. first coffee tho.
+
+
+now questoin is 
+how do i integrate this with flashcards? does flashcards also receive the Tags treatment?
+yeah it should.
+and the functions are compatible. i just must augment the flashcards with the list of tags to draw from which is *. or i make it an optional prop and add the filter conditionally.
+the latter.
+
+
+good i updated the get units functions and added singular & multipes.
+now. how do i populate the generate sentence input.
+its an array. ok
+min lenght?
+problem always is that i want both control over what kind of sentence is generated,
+which reduces the number of prompt inputs.
+but then i want the sentences to be meaningful and not just random gib,
+which increases the number of prompt inputs.
+hm.
+
+also i have not yet figured out how ill manage higher order concepts like tenses & performers.
+i want to limit the tenses the user is exposed to until we can be sure that that tense is learned.
+and then we introduce the next.
+but then i need tags to be not only ordered but also ordered in relation.
+ie that we circle through each performer for each tense. shit like that.
+
+ok thats anotherdaysproblem.
+
+today i do just start populating the grammar based on? i need some solution.
+hmm
+the obvious solution is to make some tags learnable.
+ie verb_forms, persons. for starter. 
+how would that work then?
+i have the TagUserRelation already.
+for some tags i would create the TagUserRelation.
+add a model to it.
+then on the translation game i add some function in the beginning checking what Tag is due to be practiced.
+and on evaluation i update the tag to the llm prompt as in 'was this aspect respected?' and evaluate based on that.
+its a bit complex for an mvp.?!
+what other solution do i have?
+/ i shudder to think that all this complexity has to get encoded into the mask later on. i am hardcoding it for dev. altho it might make it all simpler. /
+what about if i say fuck it?
+i can start without that level and just connect the yarn on what i have.
+and then itterate.
+ill do that.
+
+so now i just take the dumb simple approach of 
+fetch a VERB_CONJUGATION.
+pick the grammar from it.
+fetch two of each:
+NOUN 
+ADJECTIVE 
+ADPOSITION 
+ADVERB 
+PRONOUN 
+VERB 
+
+and from that set i generate a sentence.
+
+** another problem:
+this verb conjugation is missing the verb_form.
+should be infinitivo. i don thave that enum and tag tho.
+{
+  id: "clpl75uu10001g0mwdioy4lpr",
+  createdAt: 2023-11-30T12:53:44.664Z,
+  updatedAt: 2023-11-30T12:53:44.664Z,
+  index: 200,
+  curriculumId: "clpl75uu00000g0mwkivlcucv",
+  unitId: "clpl42ky60000g0mayurk9lny",
+  unit: {
+    id: "clpl42ky60000g0mayurk9lny",
+    createdAt: 2023-11-30T11:27:13.038Z,
+    updatedAt: 2023-11-30T11:27:13.038Z,
+    corpusId: "clpirbpeh0000g0ww9b0hby14",
+    unitType: "CONJUGATION",
+    data: {
+      mood: "NON_FINITE",
+      tense: "INFINITIVO",
+      ending: "ER",
+      english: "to be",
+      spanish: "ser",
+      performer: "NON_FINITE",
+      corpusVerbId: "cln4xlrtd0006g01vnv6v8b7y"
+    },
+    status: "UNKNOWN",
+    tags: [
+      {
+        name: "VERB_CONJUGATION"
+      }, {
+        name: "TENSE_PRESENT"
+      }, {
+        name: "ASPECT_IMPERFECTIVE"
+      }, {
+        name: "VERB_ENDING_ER"
+      }
+    ]
+  }
+}
+
+
+** sentence generation
+so now i just take the dumb simple approach of 
+fetch a VERB_CONJUGATION.
+pick the grammar from it.
+fetch two of each:
+NOUN 
+ADJECTIVE 
+ADPOSITION 
+ADVERB 
+PRONOUN 
+VERB 
+
+detail.
+what if prioritized only returns one but my requirement is two? accept or fetch further?
+fetch.
+
+had a problem fetching new units. because
+i was looking at the status of the units. and i guess i dont have any conjugations with ... ok also wrong status set. had it on NOT but didnt migrte the NOT into the new multiple units functions.
+ups.
+also i must move the return from the relation to the unit.
+also i need the unituserrelation to carry the model soon.
+because its not right to look for the status on the unit if the unit shared across games.
+
+better to look for new units from inside the curriculum and no game relation yet.
+and for due units as having both game und unit relation.
+fuck before i do the evaluation and updating model i need the unit user relation.
+well not strictly.
+but id like.
+cool. i have generation working. actually tying the not turned out to be quite straight forward. its the background shit thats the mindfuck9000.
+
+* evaluation 
+so what now.
+i probably need a bunch of shit as input.
+i do have the ids of the units used.
+i can get the tags from that.
+well i dont need that now.
+i do need now...
+that i get the units that were INPUT are evaluated and trained.
+what do i need for that?
+units, prompt. 
+
+** artefact
+{
+  language: {
+    learning: "spanish",
+    spoken: "english"
+  },
+  sentence: {
+    learning: "Ser muy paciente",
+    spoken: "To be very patient"
+  },
+  translation: "ser muy paciencia",
+  units: [
+    {
+      id: "clnt09id70010g0nukms326hd",
+      word: [Object ...]
+    }, {
+      id: "clpl42ky60000g0mayurk9lny",
+      word: [Object ...]
+    }
+  ]
+}
+
+A language learner was prompted with a english sentence and asked to provide the spanish translation as a learning exercise.
+You provide feedback on the translation for the user,
+and you provide an technical evaluation on the successfull usage of specific individual words.
+
+Feedback:
+Assess each part-of-speech and the overall quality of the translation.
+Include a score and classification for both individual parts and the entire sentence.
+
+The learner was prompted with this sentence:
+<prompt>To be very patient</prompt>
+
+The learner provided this translation:
+<translation>ser muy paciencia</translation>
+
+This was the originially intended translation, but the learner never saw it:
+<translation>Ser muy paciente</translation>
+
+Evaluation:
+The sentence was generated from these words:
+{ id: "clnt09id70010g0nukms326hd", english: "very, really", spanish: "muy" },
+{ id: "clpl42ky60000g0mayurk9lny", english: "to be", spanish: "ser" },
+Evaluate whether the usage of these words as either correct or incorrect.
+
+
+Respond in this json structure exactly:
+"""
+FeedbackEnum = "correct" // If it is correct
+    | "info" // If it is correct but not the best way to say it
+    | "mistake" // If it is incorrect but understandable
+    | "failure" // If it is incorrect and not understandable
+
+EvaluationEnum = "correct" | "incorrect" 
+
+{
+  "feedback": {
+    "parts": [{ // Breakdown of the sentence into parts of speech
+	"part": String, // The part in the sentence
+	"correction": Optional<String>, // The correction of the word, if the word was not perfectly correct
+	"translation": String, // The translation of the part of speech
+	"classification": FeedbackEnum, // Categorized quality of this part of speech
+    }],
+    "correction": Optional<String>, // The correction of the whole sentence, if the sentence was incorrect
+    "score": Float, // Number between 0 and 1, indicating the quality of the translation.
+    "classification": FeedbackEnum, // Categorized quality of the translation
+    "feedback": String, // One sentence on the quality of the translation, providing valuable feedback to the learner
+  },
+  "evaluation": [{
+    id: "ID",
+    evaluation: EvaluationEnum
+  }]
+}
+"""
+
+** model update & creation
+ok got the evaluation.
+now i have to do the whole gameunitrelation shit for the units.
+ok i am kind of exhausted.
+i am sure that once i have the whole shit figured out i am too tired to think of something new to do.
+BUT
+if i make the road ahead bigger ill do it. so.
+i now do the user item relation.
+actually that dont make sense yet.
+fuck it got no appliable use here.
+ok lol.
+i am tired.
+then i at least isolate the whole updateing game unti relation shit.
+is that a games/library question? or a src/interface?
+hm for now its games domain.
+
+ok its usable and i cleaned up a bunnch of functionality across games.
+like all the get game units and update game unit relations shit is now isolated outside the games.
+i still need to move prompts into the mask for translations.
+and i need to work the UI
+and verify propper learning behavior.
+* NOW
+- [X] populate the translation curriculum with pronouns, adverbs, adjectives.
+- [X] update the sentence generation function
+- [X] update the sentence evaluation function
+
+- [ ] move translation prompt to mask
+- [ ] create the verb form infinitivo as enum and tag and apply it to all appropriate verb conjugations
+- [ ] verify learning behavior
+- [ ] add some mechanism for keyboard navigation
+- [ ] Make UI for translations and game selection NICE
+- [ ] display a toast message when review happend on flashcards and review
+
+
+- [ ] make tags learnable and hardcode into the translation game that it fetches grammar first.
+
+
+- [ ] user tag relation
+- [ ] user item relation
+
+- [ ] test & migrate to ebisu v3
+- [ ] create flashcards game for grammar
+- [ ] the whole HEAD concept
+
+* Milestones
+*** Milestone #2
+- [ ] translations 
+
+*** Milestone #3
+- [ ] user management ()
+
+*** Milestone #4
+- [ ] narrative layers
+- [ ] rpg game
+
